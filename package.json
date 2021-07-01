@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:lib": "ng build my-lib",
+    "build:elements": "npm run build:lib && ng build --project my-app --output-hashing none && npm run pack:elements && cp projects/my-lib/package.json dist/elements",
+    "pack:elements": "cat ./dist/my-app/{runtime,polyfills,main}.js > dist/my-app/elements.js && ls -lah dist/my-app/elements.js",
+    "demo": "npx http-server -c-1"
   },
   "private": true,
   "dependencies": {
@@ -14,10 +18,13 @@
     "@angular/common": "~12.1.0",
     "@angular/compiler": "~12.1.0",
     "@angular/core": "~12.1.0",
+    "@angular/elements": "^12.1.1",
     "@angular/forms": "~12.1.0",
     "@angular/platform-browser": "~12.1.0",
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",
+    "document-register-element": "^1.7.2",
+    "http-server": "^0.12.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -34,6 +41,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ng-packagr": "^12.1.0-next.0",
     "typescript": "~4.3.2"
   }
 }
